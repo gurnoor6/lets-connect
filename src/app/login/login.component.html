@@ -1,0 +1,19 @@
+<div class="container-fluid mt-5">
+	<div class="row justify-content-center">
+		<div class="col-sm-9 col-md-4">
+			<form #userForm ="ngForm" (ngSubmit)="onSubmit()">
+			  <div class="form-group">
+			    <label for="exampleInputEmail1">Email address</label>
+			    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"  [(ngModel)]="myemail" name="email">
+			    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+			  </div>
+			  <div class="form-group" [class.mb-0]="validationFailed">
+			    <label for="exampleInputPassword1">Password</label>
+			    <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password" [(ngModel)]="mypassword">
+			  </div>
+			  <div class="text-danger mb-1" *ngIf="validationFailed"><small>Invalid Credentials</small></div>
+			  <button type="submit" class="btn btn-primary">Log In</button>
+			</form>
+		</div>
+	</div>
+</div>

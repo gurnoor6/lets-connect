@@ -1,0 +1,24 @@
+.profile-pic{
+	border-radius:100%;
+	width:100%;
+	max-width:250px;
+	max-height:250px;
+}
+
+@media screen and (min-width:992px){
+	.main-container{
+		max-width:992px;
+	}
+}
+
+.pictures img{
+	max-width:100%;
+	object-fit: cover;
+	transition:0.25s ease-out;
+}
+
+.pictures img:hover{
+	transform:scale(1.05);
+	transition:0.25s ease-in;
+	box-shadow:0 0 8px 3px rgb(128,128,128,0.8);
+}
