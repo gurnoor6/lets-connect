@@ -14,11 +14,14 @@
   </button>
   <div class="collapse navbar-collapse " id="collapsibleNavbar">
     <ul class="navbar-nav ml-auto">
-	  <li class="nav-item" *ngIf="username">
-        <a class="nav-link" >{{username}}</a>
+	  <li class="nav-item" *ngIf="loggedIn">
+        <a class="nav-link">{{currentuser}}</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/">{{currentState}}</a>
+      <li class="nav-item" *ngIf="!loggedIn">
+        <a class="nav-link" href="/">Log In</a>
+      </li>
+      <li class="nav-item" *ngIf="loggedIn">
+        <a class="nav-link" href="/"  (click)="resetUsername()">Log Out</a>
       </li>
       <li class="nav-item" *ngIf="!loggedIn">
         <a class="nav-link" (click)="Register()">Register</a>
@@ -28,7 +31,7 @@
 </nav>
 
 
-<app-login *ngIf="!loggedIn && !register && !visitor" (loggedIn)="isLoggedIn($event)" (username)="getUsername($event)" (click)="toggleVisitor()">
+<app-login *ngIf="!loggedIn && !register && !visitor" (loggedIn)="isLoggedIn($event)" (click)="toggleVisitor()">
 </app-login>
 <app-profile *ngIf="(loggedIn && !register)||(visitor) ">
 </app-profile>

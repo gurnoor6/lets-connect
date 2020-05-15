@@ -1,5 +1,6 @@
 import { Component,OnInit } from '@angular/core';
 import {Router} from '@angular/router';
+import {UserdataService} from './userdata.service';
 
 @Component({
   selector: 'app-root',
@@ -8,18 +9,19 @@ import {Router} from '@angular/router';
 })
 export class AppComponent implements OnInit {
 
-  constructor(private router:Router){}
+  constructor(private router:Router,private ud:UserdataService){}
 
-
+  currentuser="hello";
   ngOnInit(): void {
-  	setInterval(()=>{this.checkProfile()},100)
+  	setInterval(()=>{this.checkProfile()},100);
+    setInterval(()=>{this.setUsername()},100);
+    
   }
 
   title = 'letsconnect';
   currentState="Log In";
   loggedIn=false;
   register=false;
-  username="";
   visitor=false;
 
   isLoggedIn(logged:boolean){
@@ -27,19 +29,22 @@ export class AppComponent implements OnInit {
   	this.loggedIn=logged;
   }
 
+
+  setUsername(){
+     this.currentuser=this.ud.getCurrentUser();
+  }
+
+
   Register(){
   	this.register=true;
     this.visitor=false;
-  	console.log(this.register);
   }
 
-  getUsername(user:string){
-  	this.username = user;
+  resetUsername(){
+    this.ud.removeCurrentUser();
   }
 
   checkProfile(){
-    
-    // window.location.href.substr(window.location.href.lastIndexOf('/') + 1)
     if(window.location.href.includes("profile")){
       this.visitor=true;
     }

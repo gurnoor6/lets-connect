@@ -23,9 +23,26 @@ export class UserdataService {
 
   setUsername(name):void{
   	this.username=name;
+    
   }
 
   getUsername():string{
   	return this.username;
+  }
+
+  setCurrentUser(name):void{
+    localStorage.setItem("currentUser",name);
+  }
+
+  getCurrentUser():string{
+    return localStorage.getItem("currentUser");
+  }
+
+  removeCurrentUser():void{
+    localStorage.removeItem("currentUser");
+  }
+
+  setBlankUser(){
+    localStorage.setItem("currentUser","");
   }
 }

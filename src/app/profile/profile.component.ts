@@ -14,6 +14,8 @@ export class ProfileComponent implements OnInit {
   username="";
   public pictures=[];
   dNone=false;
+  uploadSuccess=false;
+  adminAccess=false;
   constructor(private ud:UserdataService, private postservice:PostService) { }
 
   ngOnInit(): void {
@@ -24,6 +26,9 @@ export class ProfileComponent implements OnInit {
   		this.username = this.ud.getUsername();
   		console.log(this.username);
   	}
+
+  	if (this.username==this.ud.getCurrentUser())
+  		this.adminAccess=true;
 
   	this.profilepic=this.ud.getProfilePicture(this.username);
   	console.log(this.profilepic);
@@ -38,10 +43,13 @@ export class ProfileComponent implements OnInit {
 
 
     fileToUpload :File=null;
-	handleFileInput(files:FileList){
+	handleFileInput(files:FileList,autoUpdate=0){
 		this.fileToUpload = files.item(0);
 		if(this.dNone)
 			this.onSubmit('profilepicture','update/');
+		if(autoUpdate==1){
+			this.onSubmit('picture','upload/');
+		}
 	}
 
 	onSubmit(tag,loc){
@@ -50,7 +58,8 @@ export class ProfileComponent implements OnInit {
 	 	formData.append(tag,this.fileToUpload,this.fileToUpload.name);
 		this.postservice.create('http://localhost:8000/'+loc,formData)
 			.subscribe(response=>{
-				console.log(response);
+				if(response['response']=='pass')
+					this.uploadSuccess=true;
 			});
 	 }
 
@@ -68,6 +77,9 @@ export class ProfileComponent implements OnInit {
 	 					});
 	 }
 
+	 onUploadClick(){
+	 	document.getElementById('image').click();
+	 }
 
 
 

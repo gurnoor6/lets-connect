@@ -8,30 +8,32 @@
 		</div>
 		<div class="col-sm-12 col-md-9 text-left">
 			<p class="lead">{{username}}</p> 
-			<p class="data-description"><b>893</b> followers</p>
+			<p class="data-description"><b>0</b> followers</p>
 			<br>
-			<p class="lead">The official page of the palace</p>
-			<p >Keep it real.</p>
+			<p class="lead">Your official Page</p>
+			<p >Enjoy!</p>
 		</div>
 	</div>
 
 	<hr>
-	<div class="tab-nav">
-
+	<div class="tab-nav text-center mb-0">
+		<p class="lead mb-0">YOUR PHOTOS</p>
 	</div>
 	<div class="row justify-content-left">
-		<div class="col-12 col-md-4 mt-5 text-center pictures" *ngFor="let pic of pictures">
-			<img src="{{pic}}">
+		<div class="col-12 col-md-4 text-center pictures my-auto" *ngFor="let pic of pictures">
+			<img class="mt-4" src="{{pic}}">
 		</div>
 	</div>
-	<div>
-		<form #pictureForm="ngForm" novalidate (ngSubmit)="onSubmit('picture','upload/')">
-			<input type="file" class="form-control" id="image" (change)="handleFileInput($event.target.files)">
-			<button type="submit" class="btn btn-primary">Register</button>
-		</form>
-
-		<form #deleteForm="ngForm" novalidate (ngSubmit)="deleteUser()">
-			<button type="submit" class="btn btn-danger">Delete User</button>
-		</form>
+	<br>
+	<div *ngIf="adminAccess">
+			<form #pictureForm="ngForm" novalidate >
+				<input type="file" class="form-control d-none" id="image" (change)="handleFileInput($event.target.files,1)">
+				<button type="submit" class="btn btn-primary" (click)="onUploadClick()">Upload Image</button>
+				<p class="lead" *ngIf="uploadSuccess">Your Image has been uploaded Successfully. Refresh to see it</p>
+			</form>
+			<br>
+			<form #deleteForm="ngForm" novalidate (ngSubmit)="deleteUser()" >
+				<button type="submit" class="btn btn-danger">Delete User</button>
+			</form>
 	</div>
 </div>

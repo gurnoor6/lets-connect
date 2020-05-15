@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
   constructor(private service:PostService, private ud:UserdataService,private route:ActivatedRoute,private router:Router) { }
 
   ngOnInit(): void {
+    this.ud.setBlankUser();
   }
 
   log(){
@@ -39,6 +40,8 @@ export class LoginComponent implements OnInit {
   			this.username.emit(response[0]['username']);
   			this.loggedIn.emit(true);
         this.router.navigate(['profile/'+response[0]['username']],{relativeTo:this.route});
+        this.ud.setCurrentUser(response[0]['username']);
+
   		}
   	},
   	error=>{console.log("error occured");});
