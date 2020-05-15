@@ -10,12 +10,16 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
+
   profilepic="";
   username="";
   public pictures=[];
   dNone=false;
   uploadSuccess=false;
   adminAccess=false;
+  titleChangeBox = false;
+
+
   constructor(private ud:UserdataService, private postservice:PostService,private router:Router,
   	private route:ActivatedRoute) { }
 
@@ -80,6 +84,14 @@ export class ProfileComponent implements OnInit {
 
 	 onUploadClick(){
 	 	document.getElementById('image').click();
+	 }
+
+	 changeTitleTrigger(){
+	 	this.titleChangeBox?this.titleChangeBox=false:this.titleChangeBox=true;
+	 }
+
+	 changeTitle(){
+	 	
 	 }
 
 
