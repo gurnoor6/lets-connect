@@ -14,6 +14,7 @@ urlpatterns = [
     path('upload/',views.uploadImage,name='uploadImage'),
     path('update/',views.updateProfilePicture,name='updateProfilePicture'),
     path('delete/',views.deleteUser,name="deleteUser"),
-    path('updateTitle/',views.updateTitle,name='updateTitle')
+    path('updateTitle/',views.updateTitle,name='updateTitle'),
+    path('updateDescription/',views.updateDescription,name='updateDescription')
 ]
 

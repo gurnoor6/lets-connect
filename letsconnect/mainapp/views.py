@@ -87,6 +87,16 @@ def updateTitle(request):
 			return JsonResponse({"response":"pass"})
 		return JsonResponse({"response":"fail"})
 
+@csrf_exempt
+def updateDescription(request):
+	if request.method=='POST':
+		username = request.POST['username']
+		description = request.POST['description']
+		profiles = NewProfile.objects.all().filter(username=username)
+		if len(profiles)==1:
+			profiles.update(description= description)
+			return JsonResponse({"response":"pass"})
+		return JsonResponse({"response":"fail"})
 
 
 
