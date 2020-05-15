@@ -22,8 +22,12 @@ handleFileInput(files:FileList){
 }
 
  onSubmit(){
-	console.log(this.userForm);
-	this.service.create('http://localhost:8000/profile/',this.userForm)
+ 	const formData = new FormData();
+ 	formData.append('email',this.userForm.email);
+ 	formData.append('password',this.userForm.password);
+ 	formData.append('username',this.userForm.username);
+ 	formData.append('profilepicture',this.fileToUpload,this.fileToUpload.name);
+	this.service.create('http://localhost:8000/profile/',formData)
 		.subscribe(response=>{
 			console.log(response);
 		});

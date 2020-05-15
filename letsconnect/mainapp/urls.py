@@ -2,6 +2,7 @@ from django.urls import include, path,re_path
 from rest_framework import routers
 from . import views
 
+
 router = routers.DefaultRouter()
 router.register('profile',views.NewProfileView)
 
@@ -11,3 +12,4 @@ urlpatterns = [
     path('', include(router.urls)),
     re_path(r'^login/.*',views.LoginView,name='LoginView')
 ]
+

@@ -19,7 +19,8 @@ class NewProfileView(viewsets.ModelViewSet):
 		email = request.data['email']
 		password = request.data['password']
 		username = request.data['username']
-		NewProfile.objects.create(email=email,password=password,username=username)
+		profilepicture = request.data['profilepicture']
+		NewProfile.objects.create(email=email,password=password,username=username,profilepicture=profilepicture)
 		return HttpResponse({'message':'Registered Successfully'},status=200)
 
 # def LoginView(request):
