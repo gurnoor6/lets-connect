@@ -18,6 +18,7 @@ export class ProfileComponent implements OnInit {
   uploadSuccess=false;
   adminAccess=false;
   titleChangeBox = false;
+  title="Your official Page!"
 
 
   constructor(private ud:UserdataService, private postservice:PostService,private router:Router,
@@ -28,7 +29,8 @@ export class ProfileComponent implements OnInit {
   		this.username = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
   	}
   	else{
-  		this.username = this.ud.getUsername();
+  		this.username = this.ud.getCurrentUser();
+  		window.location.href=window.location.href+'profile/'+this.username;
   		console.log(this.username);
   	}
 
@@ -88,10 +90,6 @@ export class ProfileComponent implements OnInit {
 
 	 changeTitleTrigger(){
 	 	this.titleChangeBox?this.titleChangeBox=false:this.titleChangeBox=true;
-	 }
-
-	 changeTitle(){
-	 	
 	 }
 
 
