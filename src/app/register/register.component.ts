@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {NewUser} from './new-user-interface';
 import {PostService} from '.././services/post.service';
+import {UserdataService} from '.././userdata.service';
 
 @Component({
   selector: 'app-register',
@@ -9,7 +10,7 @@ import {PostService} from '.././services/post.service';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private service:PostService) { }
+  constructor(private service:PostService,private ud:UserdataService) { }
 
   ngOnInit(): void {
 
@@ -31,7 +32,9 @@ handleFileInput(files:FileList){
  	formData.append('profilepicture',this.fileToUpload,this.fileToUpload.name);
 	this.service.create('http://localhost:8000/profile/',formData)
 		.subscribe(response=>{
-					this.registered=true;},
+					this.registered=true;
+					this.ud.setProfilePicture(this.userForm.username,response['profilepicture']);
+				},
 				error=>{
 					this.error=true;}
 		);

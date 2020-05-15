@@ -28,12 +28,10 @@
 </nav>
 
 
-<app-login *ngIf="!loggedIn && !register" (loggedIn)="isLoggedIn($event)" (username)="getUsername($event)">
+<app-login *ngIf="!loggedIn && !register && !visitor" (loggedIn)="isLoggedIn($event)" (username)="getUsername($event)">
 </app-login>
-<app-profile *ngIf="loggedIn && !register">
+<app-profile *ngIf="(loggedIn && !register)||(visitor) ">
 </app-profile>
 
-
-
-<app-register *ngIf="register">
+<app-register *ngIf="register && !visitor">
 </app-register>

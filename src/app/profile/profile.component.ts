@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {UserdataService} from '.././userdata.service';
 import {PostService} from '.././services/post.service';
+import {ActivatedRoute} from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -9,14 +11,21 @@ import {PostService} from '.././services/post.service';
 })
 export class ProfileComponent implements OnInit {
   profilepic="";
-  username;
+  username="";
   public pictures=[];
   dNone=false;
   constructor(private ud:UserdataService, private postservice:PostService) { }
 
   ngOnInit(): void {
-  	this.username = this.ud.getUsername();
+  	if(window.location.href.includes("profile")){
+  		this.username = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
+  	}
+  	else{
+  		this.username = this.ud.getUsername();
+  	}
+
   	this.profilepic=this.ud.getProfilePicture(this.username);
+  	console.log(this.profilepic);
   	this.postservice.getPictures(this.username)
   					.subscribe(response=>{
   						for(let entry of (response as any)){

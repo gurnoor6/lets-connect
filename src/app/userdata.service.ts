@@ -12,12 +12,13 @@ export class UserdataService {
 
   map = new Map();
   setProfilePicture(username,address):void{
-  	var newaddress = "http://localhost:8000"+<string>address;
-  	this.map.set(username,newaddress);
+  	
+    localStorage.setItem(username,address);
   }
 
   getProfilePicture(username):string{
-  	return this.map.get(username);
+
+  	return localStorage.getItem(username);
   }
 
   setUsername(name):void{
