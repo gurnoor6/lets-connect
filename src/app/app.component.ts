@@ -25,7 +25,9 @@ export class AppComponent implements OnInit {
   visitor=false;
 
   setUsername(){
+
      this.currentuser=this.ud.getCurrentUser();
+
      this.ud.getLoginStatus()=="true"?this.loggedIn=true:this.loggedIn=false;
   }
 

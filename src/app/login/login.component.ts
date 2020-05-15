@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   constructor(private service:PostService, private ud:UserdataService,private route:ActivatedRoute,private router:Router) { }
 
   ngOnInit(): void {
-    this.ud.setBlankUser();
+    
   }
 
   log(){
