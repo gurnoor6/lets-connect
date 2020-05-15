@@ -5,7 +5,7 @@ import {RegisterComponent} from './register/register.component';
 import {ProfileComponent} from './profile/profile.component';
 
 const routes: Routes = [
-{path:'',component:LoginComponent},
+
 ];
 
 @NgModule({
