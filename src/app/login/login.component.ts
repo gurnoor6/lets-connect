@@ -42,6 +42,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['profile/'+response[0]['username']],{relativeTo:this.route});
         this.ud.setCurrentUser(response[0]['username']);
         this.ud.setLoginStatus("true");
+        this.ud.setTitle(response[0]['title']);
 
   		}
   	},

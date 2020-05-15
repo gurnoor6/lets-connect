@@ -8,7 +8,6 @@ export class UserdataService {
   
   private profilepicture="https://www.innonthesquare.com/resourcefiles/mobilehomeimages/inn-on-the-square-falmouth-massachusetts-mobile.jpg";
   private username="";
-  private loginstatus="false";
   constructor() { }
 
   map = new Map();
@@ -55,4 +54,13 @@ export class UserdataService {
   getLoginStatus():string{
     return localStorage.getItem("loginstatus");
   }
+
+  setTitle(str):void{
+    localStorage.setItem("title",str);
+  }
+
+  getTitle():string{
+    return localStorage.getItem("title");
+  }
+
 }

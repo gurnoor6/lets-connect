@@ -17,6 +17,7 @@
 	object-fit: cover;
 	transition:0.25s ease-out;
 	box-shadow:0 0 5px 2px rgb(128,128,128,0.8);
+	border-radius: 10%;
 }
 
 @media screen and (max-width:992px){

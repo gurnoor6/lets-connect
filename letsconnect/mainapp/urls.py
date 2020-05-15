@@ -13,6 +13,7 @@ urlpatterns = [
     re_path(r'^login/.*',views.LoginView,name='LoginView'),
     path('upload/',views.uploadImage,name='uploadImage'),
     path('update/',views.updateProfilePicture,name='updateProfilePicture'),
-    path('delete/',views.deleteUser,name="deleteUser")
+    path('delete/',views.deleteUser,name="deleteUser"),
+    path('updateTitle/',views.updateTitle,name='updateTitle')
 ]
 

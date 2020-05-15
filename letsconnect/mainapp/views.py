@@ -76,6 +76,18 @@ def deleteUser(request):
 			return JsonResponse({"response":"pass"})
 	return JsonResponse({"response":"fail"})
 
+@csrf_exempt
+def updateTitle(request):
+	if request.method=='POST':
+		username = request.POST['username']
+		title = request.POST['title']
+		profiles = NewProfile.objects.all().filter(username=username)
+		if len(profiles)==1:
+			profiles.update(title= title)
+			return JsonResponse({"response":"pass"})
+		return JsonResponse({"response":"fail"})
+
+
 
 
 

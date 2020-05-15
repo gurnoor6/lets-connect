@@ -10,11 +10,12 @@
 			<p class="lead">{{username}}</p> 
 			<p class="data-description"><b>0</b> followers</p>
 			<br>
-			<p class="lead">{{title.value}}<span (click)="changeTitleTrigger()" class="fa fa-pencil" style="margin-left:4px"></span></p>
+			<p class="lead">{{title}}<span (click)="changeTitleTrigger()" class="fa fa-pencil" style="margin-left:4px"></span></p>
 			<div [class.d-none]="!titleChangeBox" class="title-change-box">
-				<input #title type="text"  placeholder="Your new Title" value="My New Page!!">
-				<button class="btn btn-dark btn-sm" (click)="changeTitleTrigger()">Change!</button>
+				<input type="text" [(ngModel)]="title" placeholder="Your new Title" value="My New Page!!">
+				<button class="btn btn-dark btn-sm" (click)="changeTitle()">Change!</button>
 			</div>
+			<p class="small text-success" [class.d-none]="!titleChangeSuccess">Your info has been updated successfully</p>
 			<p >Enjoy!</p>
 		</div>
 	</div>

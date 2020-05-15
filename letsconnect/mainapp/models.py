@@ -14,6 +14,8 @@ class NewProfile(models.Model):
 	email = models.CharField(max_length=50)
 	password = models.CharField(max_length=50)
 	profilepicture = models.ImageField(upload_to='images/')
+	description = models.TextField(null=True)
+	title = models.TextField(null=True)
 
 
 class Pictures(models.Model):

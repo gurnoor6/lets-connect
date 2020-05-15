@@ -7,7 +7,8 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  styleUrls: ['./profile.component.css'],
+  animations:[],
 })
 export class ProfileComponent implements OnInit {
 
@@ -18,7 +19,8 @@ export class ProfileComponent implements OnInit {
   uploadSuccess=false;
   adminAccess=false;
   titleChangeBox = false;
-  title="Your official Page!"
+  title="Hello World";
+  titleChangeSuccess=false;
 
 
   constructor(private ud:UserdataService, private postservice:PostService,private router:Router,
@@ -45,6 +47,9 @@ export class ProfileComponent implements OnInit {
   							this.pictures.push("http://localhost:8000"+entry['picture']);
   						}	  					
   					});
+  	this.title=this.ud.getTitle();
+
+
   }
 
 
@@ -90,6 +95,18 @@ export class ProfileComponent implements OnInit {
 
 	 changeTitleTrigger(){
 	 	this.titleChangeBox?this.titleChangeBox=false:this.titleChangeBox=true;
+	 }
+
+	 changeTitle(){
+	 	const formData = new FormData();
+	 	formData.append('username',this.username);
+	 	formData.append('title',this.title);
+	 	this.postservice.create('http://localhost:8000/updateTitle/',formData)
+	 					.subscribe(response=>{
+	 						this.changeTitleTrigger();
+	 						this.titleChangeSuccess=true;
+	 						this.ud.setTitle(this.title);
+	 					});
 	 }
 
 
