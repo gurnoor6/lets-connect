@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 export class UserdataService {
 
   private profilepicture="https://www.innonthesquare.com/resourcefiles/mobilehomeimages/inn-on-the-square-falmouth-massachusetts-mobile.jpg";
-
+  private username="";
   constructor() { }
 
   setProfilePicture(address):void{
@@ -16,5 +16,13 @@ export class UserdataService {
 
   getProfilePicture():string{
   	return this.profilepicture;
+  }
+
+  setUsername(name):void{
+  	this.username=name;
+  }
+
+  getUsername():string{
+  	return this.username;
   }
 }

@@ -35,9 +35,11 @@ export class LoginComponent implements OnInit {
   			this.validationFailed=true;
   		}
   		else{
+
   			this.username.emit(response[0]['username']);
   			this.loggedIn.emit(true);
   			this.ud.setProfilePicture(response[0]['profilepicture']);
+  			this.ud.setUsername(response[0]['username']);
 
   		}
   	},

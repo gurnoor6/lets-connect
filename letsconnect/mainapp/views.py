@@ -55,6 +55,25 @@ def LoginView(request):
 			return JsonResponse({"response":"fail"})
 
 
+@csrf_exempt
+def uploadImage(request):
+	if request.method=='POST':
+		username = request.POST['username']
+		pic = request.FILES['picture']
+		Pictures.objects.create(username=username,picture=pic)
+		return JsonResponse({"response":"pass"})
+
+	if request.method=='GET':
+		username = request.GET.get('username',None)
+		pictures = Pictures.objects.all().filter(username=username)
+		if pictures is not None:
+			picture_serializer = PictureSerializer(pictures,many=True)
+			return JsonResponse(picture_serializer.data,safe=False)
+		else:
+			return JsonResponse({"response":"fail"})
+
+
+
 
 
 

@@ -14,6 +14,10 @@ export class PostService {
       return this.httpClient.get(this.url+'?email='+data.email+'&password='+data.password);
     }
 
+  getPictures(username,url='http://localhost:8000/upload/'){
+    return this.httpClient.get(url+'?username='+username);
+  }
+
     create(url,post){
       return this.httpClient.post<any>(url,post);
     }

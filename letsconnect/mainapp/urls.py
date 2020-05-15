@@ -10,6 +10,7 @@ router.register('profile',views.NewProfileView)
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
     path('', include(router.urls)),
-    re_path(r'^login/.*',views.LoginView,name='LoginView')
+    re_path(r'^login/.*',views.LoginView,name='LoginView'),
+    path('upload/',views.uploadImage,name='uploadImage')
 ]
 

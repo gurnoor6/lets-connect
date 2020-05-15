@@ -15,3 +15,8 @@ class NewProfile(models.Model):
 	password = models.CharField(max_length=50)
 	profilepicture = models.ImageField(upload_to='images/')
 
+
+class Pictures(models.Model):
+	username = models.CharField(max_length=50)
+	picture = models.ImageField(upload_to='images/uploads/')
+

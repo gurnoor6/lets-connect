@@ -4,7 +4,7 @@
 			<img src="{{profilepic}}" class="profile-pic">
 		</div>
 		<div class="col-sm-12 col-md-9 text-left">
-			<p class="lead">The Palace</p> 
+			<p class="lead">{{username}}</p> 
 			<p class="data-description"><b>893</b> followers</p>
 			<br>
 			<p class="lead">The official page of the palace</p>
@@ -20,5 +20,11 @@
 		<div class="col-12 col-md-4 mt-5 text-center pictures" *ngFor="let pic of pictures">
 			<img src="{{pic}}">
 		</div>
+	</div>
+	<div>
+		<form #pictureForm="ngForm" novalidate (ngSubmit)="onSubmit()">
+			<input type="file" class="form-control" id="image" (change)="handleFileInput($event.target.files)">
+			<button type="submit" class="btn btn-primary">Register</button>
+		</form>
 	</div>
 </div>

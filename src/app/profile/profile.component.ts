@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {UserdataService} from '.././userdata.service';
+import {PostService} from '.././services/post.service';
 
 @Component({
   selector: 'app-profile',
@@ -8,13 +9,44 @@ import {UserdataService} from '.././userdata.service';
 })
 export class ProfileComponent implements OnInit {
   profilepic="";
-  public pictures=['https://cdn131.picsart.com/326902845047201.jpg?type=webp&to=crop&r=256','https://cdn5.picsart.com/5259562062.jpeg?type=webp&to=crop&r=256','https://cdn131.picsart.com/289094235017201.jpg?type=webp&to=crop&r=256',
-  'https://www.ee.iitm.ac.in/comp_photolab/images/projects/underwaterDepth/2.jpg']
-  constructor(private ud:UserdataService) { }
+  username;
+  public pictures=[]
+  constructor(private ud:UserdataService, private postservice:PostService) { }
 
   ngOnInit(): void {
   	this.profilepic=this.ud.getProfilePicture();
-  	console.log(this.profilepic);
+  	this.username = this.ud.getUsername();
+  	this.postservice.getPictures(this.username)
+  					.subscribe(response=>{
+  						for(let entry of (response as any)){
+  							this.pictures.push("http://localhost:8000"+entry['picture']);
+  						}	  					
+  					});
   }
+
+
+
+    fileToUpload :File=null;
+	handleFileInput(files:FileList){
+		this.fileToUpload = files.item(0);
+	}
+
+	onSubmit(){
+		const formData = new FormData();
+	 	formData.append('username',this.username);
+	 	formData.append('picture',this.fileToUpload,this.fileToUpload.name);
+		this.postservice.create('http://localhost:8000/upload/',formData)
+			.subscribe(response=>{
+				console.log(response);
+			});
+	 }
+
+
+
+
+
+
+
+
 
 }
