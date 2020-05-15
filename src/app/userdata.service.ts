@@ -3,19 +3,21 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class UserdataService {
 
+export class UserdataService {
+  
   private profilepicture="https://www.innonthesquare.com/resourcefiles/mobilehomeimages/inn-on-the-square-falmouth-massachusetts-mobile.jpg";
   private username="";
   constructor() { }
 
-  setProfilePicture(address):void{
+  map = new Map();
+  setProfilePicture(username,address):void{
   	var newaddress = "http://localhost:8000"+<string>address;
-  	this.profilepicture = newaddress;
+  	this.map.set(username,newaddress);
   }
 
-  getProfilePicture():string{
-  	return this.profilepicture;
+  getProfilePicture(username):string{
+  	return this.map.get(username);
   }
 
   setUsername(name):void{

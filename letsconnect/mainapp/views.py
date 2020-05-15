@@ -7,10 +7,6 @@ from django.http.response import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 
 
-
-
-
-
 class NewProfileView(viewsets.ModelViewSet):
 	queryset = NewProfile.objects.all()
 	serializer_class = NewProfileSerializer
@@ -22,22 +18,6 @@ class NewProfileView(viewsets.ModelViewSet):
 		profilepicture = request.data['profilepicture']
 		NewProfile.objects.create(email=email,password=password,username=username,profilepicture=profilepicture)
 		return HttpResponse({'message':'Registered Successfully'},status=200)
-
-# def LoginView(request):
-# 	if request.method=='GET':
-# 		profiles = NewProfile.objects.all()
-# 		email = request.GET.get('email',None)
-# 		password = request.GET.get('password',None)
-# 		if email is not None and password is not None:
-# 			profiles = profiles.filter(email=email,password=password)
-		
-# 		profile_serializer = NewProfileSerializer(profiles,many=True)
-# 		if(len(profiles)==1):
-# 			return JsonResponse(profile_serializer.data,safe=False)
-# 		else:
-# 			return JsonResponse({"response":"fail"})
-
-# 		# return JsonResponse(profile_serializer.data,safe=False)
 
 @csrf_exempt
 def LoginView(request):
@@ -71,6 +51,27 @@ def uploadImage(request):
 			return JsonResponse(picture_serializer.data,safe=False)
 		else:
 			return JsonResponse({"response":"fail"})
+
+@csrf_exempt
+def updateProfilePicture(request):
+	if request.method=='POST':
+		username = request.POST['username']
+		profiles = NewProfile.objects.all().filter(username=username)
+		if len(profiles)==1:
+			profiles.update(profilepicture='images/'+str(request.FILES['profilepicture']))		#images/ was added because due to some reason, it was not automatically picking it up. It was storing directly to '/media/'
+			return JsonResponse({"response":"pass"})
+		else:
+			return JsonResponse({"response":"fail"})
+
+@csrf_exempt
+def deleteUser(request):
+	if request.method=='POST':
+		username = request.POST['username']
+		profiles = NewProfile.objects.all().filter(username=username)
+		if len(profiles)==1:
+			profiles.delete()
+			return JsonResponse({"response":"pass"})
+	return JsonResponse({"response":"fail"})
 
 
 

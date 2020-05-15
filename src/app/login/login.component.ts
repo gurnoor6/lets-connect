@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
 
   			this.username.emit(response[0]['username']);
   			this.loggedIn.emit(true);
-  			this.ud.setProfilePicture(response[0]['profilepicture']);
+  			this.ud.setProfilePicture(response[0]['username'],response[0]['profilepicture']);
   			this.ud.setUsername(response[0]['username']);
 
   		}

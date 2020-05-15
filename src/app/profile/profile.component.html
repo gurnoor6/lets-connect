@@ -1,7 +1,10 @@
 <div class="container main-container">
 	<div class="row mt-5">
 		<div class="col-sm-12 col-md-3 text-center">
-			<img src="{{profilepic}}" class="profile-pic">
+			<form #profilepictureForm="ngForm" novalidate>
+				<input type="file" class="form-control d-none" id="profile-image" (change)="handleFileInput($event.target.files)" >
+				<img src="{{profilepic}}" class="profile-pic" (click)="onImgClick()">
+			</form>
 		</div>
 		<div class="col-sm-12 col-md-9 text-left">
 			<p class="lead">{{username}}</p> 
@@ -22,9 +25,13 @@
 		</div>
 	</div>
 	<div>
-		<form #pictureForm="ngForm" novalidate (ngSubmit)="onSubmit()">
+		<form #pictureForm="ngForm" novalidate (ngSubmit)="onSubmit('picture','upload/')">
 			<input type="file" class="form-control" id="image" (change)="handleFileInput($event.target.files)">
 			<button type="submit" class="btn btn-primary">Register</button>
+		</form>
+
+		<form #deleteForm="ngForm" novalidate (ngSubmit)="deleteUser()">
+			<button type="submit" class="btn btn-primary">Delete User</button>
 		</form>
 	</div>
 </div>

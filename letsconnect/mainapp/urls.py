@@ -11,6 +11,8 @@ router.register('profile',views.NewProfileView)
 urlpatterns = [
     path('', include(router.urls)),
     re_path(r'^login/.*',views.LoginView,name='LoginView'),
-    path('upload/',views.uploadImage,name='uploadImage')
+    path('upload/',views.uploadImage,name='uploadImage'),
+    path('update/',views.updateProfilePicture,name='updateProfilePicture'),
+    path('delete/',views.deleteUser,name="deleteUser")
 ]
 
