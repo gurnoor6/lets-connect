@@ -21,6 +21,9 @@ export class ProfileComponent implements OnInit {
   titleChangeBox = false;
   title="Hello World";
   titleChangeSuccess=false;
+  descriptionChangeBox=false;
+  description="Hello World!"
+  descriptionChangeSuccess=false;
 
 
   constructor(private ud:UserdataService, private postservice:PostService,private router:Router,
@@ -33,14 +36,12 @@ export class ProfileComponent implements OnInit {
   	else{
   		this.username = this.ud.getCurrentUser();
   		window.location.href=window.location.href+'profile/'+this.username;
-  		console.log(this.username);
   	}
 
   	if (this.username==this.ud.getCurrentUser())
   		this.adminAccess=true;
 
   	this.profilepic=this.ud.getProfilePicture(this.username);
-  	console.log(this.profilepic);
   	this.postservice.getPictures(this.username)
   					.subscribe(response=>{
   						for(let entry of (response as any)){
@@ -48,6 +49,7 @@ export class ProfileComponent implements OnInit {
   						}	  					
   					});
   	this.title=this.ud.getTitle();
+  	this.description = this.ud.getDescription();
 
 
   }
@@ -109,6 +111,21 @@ export class ProfileComponent implements OnInit {
 	 					});
 	 }
 
+	 changeDescription(){
+	 	const formData = new FormData();
+	 	formData.append('username',this.username);
+	 	formData.append('description',this.description);
+	 	this.postservice.create('http://localhost:8000/updateDescription/',formData)
+	 					.subscribe(response=>{
+	 						this.changeDescriptionTrigger();
+	 						this.descriptionChangeSuccess=true;
+	 						this.ud.setDescription(this.description);
+	 					});
+	 }
+
+	 changeDescriptionTrigger(){
+	 	this.descriptionChangeBox?this.descriptionChangeBox=false:this.descriptionChangeBox=true;
+	 }
 
 
 

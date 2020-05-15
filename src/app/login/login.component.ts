@@ -43,6 +43,7 @@ export class LoginComponent implements OnInit {
         this.ud.setCurrentUser(response[0]['username']);
         this.ud.setLoginStatus("true");
         this.ud.setTitle(response[0]['title']);
+        this.ud.setDescription(response[0]['description']);
 
   		}
   	},

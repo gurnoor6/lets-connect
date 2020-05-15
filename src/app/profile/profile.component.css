@@ -26,7 +26,7 @@
 	}
 }
 
-.title-change-box{
+.title-change-box,.description-change-box{
 	animation:display-in 0.5s ease-in;
 }
 

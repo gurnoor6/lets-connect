@@ -63,4 +63,12 @@ export class UserdataService {
     return localStorage.getItem("title");
   }
 
+  setDescription(str):void{
+    localStorage.setItem("description",str);
+  }
+
+  getDescription():string{
+    return localStorage.getItem("description");
+  }
+
 }
