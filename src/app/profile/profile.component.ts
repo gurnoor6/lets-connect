@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {UserdataService} from '.././userdata.service';
 import {PostService} from '.././services/post.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute,Router} from '@angular/router';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -16,7 +16,8 @@ export class ProfileComponent implements OnInit {
   dNone=false;
   uploadSuccess=false;
   adminAccess=false;
-  constructor(private ud:UserdataService, private postservice:PostService) { }
+  constructor(private ud:UserdataService, private postservice:PostService,private router:Router,
+  	private route:ActivatedRoute) { }
 
   ngOnInit(): void {
   	if(window.location.href.includes("profile")){
@@ -80,6 +81,8 @@ export class ProfileComponent implements OnInit {
 	 onUploadClick(){
 	 	document.getElementById('image').click();
 	 }
+
+
 
 
 

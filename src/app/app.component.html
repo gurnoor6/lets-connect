@@ -31,7 +31,7 @@
 </nav>
 
 
-<app-login *ngIf="!loggedIn && !register && !visitor" (loggedIn)="isLoggedIn($event)" (click)="toggleVisitor()">
+<app-login *ngIf="!loggedIn && !register && !visitor" (click)="toggleVisitor()">
 </app-login>
 <app-profile *ngIf="(loggedIn && !register)||(visitor) ">
 </app-profile>

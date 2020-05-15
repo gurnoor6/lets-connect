@@ -11,7 +11,7 @@ export class AppComponent implements OnInit {
 
   constructor(private router:Router,private ud:UserdataService){}
 
-  currentuser="hello";
+  currentuser="";
   ngOnInit(): void {
   	setInterval(()=>{this.checkProfile()},100);
     setInterval(()=>{this.setUsername()},100);
@@ -24,14 +24,9 @@ export class AppComponent implements OnInit {
   register=false;
   visitor=false;
 
-  isLoggedIn(logged:boolean){
-  	logged ? this.currentState="Log Out" : this.currentState="Log In";
-  	this.loggedIn=logged;
-  }
-
-
   setUsername(){
      this.currentuser=this.ud.getCurrentUser();
+     this.ud.getLoginStatus()=="true"?this.loggedIn=true:this.loggedIn=false;
   }
 
 
