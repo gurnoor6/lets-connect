@@ -14,6 +14,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
   	this.profilepic=this.ud.getProfilePicture();
+  	console.log(this.profilepic);
   }
 
 }

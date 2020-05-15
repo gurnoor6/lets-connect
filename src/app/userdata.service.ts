@@ -10,7 +10,7 @@ export class UserdataService {
   constructor() { }
 
   setProfilePicture(address):void{
-  	var newaddress = address.replace("4200","8000");
+  	var newaddress = "http://localhost:8000"+<string>address;
   	this.profilepicture = newaddress;
   }
 
