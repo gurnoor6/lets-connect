@@ -12,12 +12,15 @@ class NewProfileView(viewsets.ModelViewSet):
 	serializer_class = NewProfileSerializer
 
 	def post(self,request,*args,**kwargs):
-		email = request.data['email']
-		password = request.data['password']
-		username = request.data['username']
-		profilepicture = request.data['profilepicture']
-		NewProfile.objects.create(email=email,password=password,username=username,profilepicture=profilepicture)
-		return HttpResponse({'message':'Registered Successfully'},status=200)
+		try:
+			email = request.data['email']
+			password = request.data['password']
+			username = request.data['username']
+			profilepicture = request.data['profilepicture']
+			NewProfile.objects.create(email=email,password=password,username=username,profilepicture=profilepicture)
+			return JsonResponse({"response":"pass"})
+		except:
+			return JsonResponse({"response":"fail"})
 
 @csrf_exempt
 def LoginView(request):

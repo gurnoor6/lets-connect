@@ -16,6 +16,8 @@ export class RegisterComponent implements OnInit {
   }
 
 userForm = new NewUser('','','');
+registered=false;
+error = false;
 fileToUpload :File=null;
 handleFileInput(files:FileList){
 	this.fileToUpload = files.item(0);
@@ -29,8 +31,10 @@ handleFileInput(files:FileList){
  	formData.append('profilepicture',this.fileToUpload,this.fileToUpload.name);
 	this.service.create('http://localhost:8000/profile/',formData)
 		.subscribe(response=>{
-			console.log(response);
-		});
+					this.registered=true;},
+				error=>{
+					this.error=true;}
+		);
  	 }
 
 }
