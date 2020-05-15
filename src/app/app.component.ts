@@ -29,6 +29,7 @@ export class AppComponent implements OnInit {
 
   Register(){
   	this.register=true;
+    this.visitor=false;
   	console.log(this.register);
   }
 
@@ -44,6 +45,10 @@ export class AppComponent implements OnInit {
     }
     else
       this.visitor=false;
+  }
+
+  toggleVisitor(){
+    this.visitor=false;
   }
 
 

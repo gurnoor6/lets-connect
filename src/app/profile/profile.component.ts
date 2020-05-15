@@ -22,6 +22,7 @@ export class ProfileComponent implements OnInit {
   	}
   	else{
   		this.username = this.ud.getUsername();
+  		console.log(this.username);
   	}
 
   	this.profilepic=this.ud.getProfilePicture(this.username);
