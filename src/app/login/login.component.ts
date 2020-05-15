@@ -1,6 +1,7 @@
 import { Component, OnInit,EventEmitter, Input, Output } from '@angular/core';
 import {PostService} from '.././services/post.service';
 import {User} from './user-interface';
+import {UserdataService} from '.././userdata.service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,7 @@ export class LoginComponent implements OnInit {
   public user:User;
   public validationFailed=false;
 
-  constructor(private service:PostService) { }
+  constructor(private service:PostService, private ud:UserdataService) { }
 
   ngOnInit(): void {
   }
@@ -36,6 +37,8 @@ export class LoginComponent implements OnInit {
   		else{
   			this.username.emit(response[0]['username']);
   			this.loggedIn.emit(true);
+  			this.ud.setProfilePicture(response[0]['profilepicture']);
+
   		}
   	},
   	error=>{console.log("error occured");});
