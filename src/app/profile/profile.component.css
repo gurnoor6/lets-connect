@@ -20,8 +20,15 @@
 	border-radius: 10%;
 }
 
+.caption-encloser{
+	height:250px;
+	display: flex;
+	justify-content: center;
+    align-items: center;
+}
+
 @media screen and (max-width:992px){
-	.pictures img{
+	.pictures img,.caption-encloser{
 		height:300px;
 	}
 }

@@ -3,18 +3,22 @@ import {UserdataService} from '.././userdata.service';
 import {PostService} from '.././services/post.service';
 import {ActivatedRoute,Router} from '@angular/router';
 import { Subscription } from 'rxjs';
+import {Picture} from './picture-interface';
+import{showCaption} from './profile-animations'
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css'],
-  animations:[],
+  animations:[
+  	showCaption,
+  ],
 })
 export class ProfileComponent implements OnInit {
 
   profilepic="";
   username="";
-  public pictures=[];
+  pictures:Picture[]=[];
   dNone=false;
   uploadSuccess=false;
   adminAccess=false;
@@ -25,7 +29,6 @@ export class ProfileComponent implements OnInit {
   description="Hello World!"
   descriptionChangeSuccess=false;
   caption="";
-  captions=[];
 
 
   constructor(private ud:UserdataService, private postservice:PostService,private router:Router,
@@ -47,8 +50,8 @@ export class ProfileComponent implements OnInit {
   	this.postservice.getPictures(this.username)
   					.subscribe(response=>{
   						for(let entry of (response as any)){
-  							this.pictures.push("http://localhost:8000"+entry['picture']);
-  							this.captions.push(entry['caption']);
+  							var pic = {location:"http://localhost:8000"+entry['picture'],caption:entry['caption'],state:'image'};
+  							this.pictures.push(pic);
   						}	  					
   					});
   	this.title=this.ud.getTitle();
@@ -131,6 +134,10 @@ export class ProfileComponent implements OnInit {
 
 	 changeDescriptionTrigger(){
 	 	this.descriptionChangeBox?this.descriptionChangeBox=false:this.descriptionChangeBox=true;
+	 }
+
+	 changePicState(pic:Picture){
+	 	pic.state=="text"?pic.state="image":pic.state="text";
 	 }
 
 
