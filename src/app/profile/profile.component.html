@@ -38,8 +38,9 @@
 	<br>
 	<div *ngIf="adminAccess">
 			<form #pictureForm="ngForm" class="text-center" novalidate >
+				<input type="text" id="caption" [(ngModel)]="caption" placeholder="Enter Caption Here" name="caption"><br>
 				<input type="file" class="form-control d-none" id="image" (change)="handleFileInput($event.target.files,1)">
-				<button type="submit" class="btn btn-dark" (click)="onUploadClick()">Upload Image</button>
+				<button type="submit" class="btn btn-dark mt-2" (click)="onUploadClick()">Upload Image</button>
 				<p class="lead" *ngIf="uploadSuccess">Your Image has been uploaded Successfully. Refresh to see it</p>
 			</form>
 			<br>

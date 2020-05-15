@@ -24,6 +24,8 @@ export class ProfileComponent implements OnInit {
   descriptionChangeBox=false;
   description="Hello World!"
   descriptionChangeSuccess=false;
+  caption="";
+  captions=[];
 
 
   constructor(private ud:UserdataService, private postservice:PostService,private router:Router,
@@ -46,6 +48,7 @@ export class ProfileComponent implements OnInit {
   					.subscribe(response=>{
   						for(let entry of (response as any)){
   							this.pictures.push("http://localhost:8000"+entry['picture']);
+  							this.captions.push(entry['caption']);
   						}	  					
   					});
   	this.title=this.ud.getTitle();
@@ -62,14 +65,17 @@ export class ProfileComponent implements OnInit {
 		if(this.dNone)
 			this.onSubmit('profilepicture','update/');
 		if(autoUpdate==1){
-			this.onSubmit('picture','upload/');
+			this.onSubmit('picture','upload/',this.caption);
 		}
 	}
 
-	onSubmit(tag,loc){
+	onSubmit(tag,loc,caption=""){
 		const formData = new FormData();
 	 	formData.append('username',this.username);
 	 	formData.append(tag,this.fileToUpload,this.fileToUpload.name);
+	 	if(caption!=""){
+	 		formData.append('caption',this.caption);
+	 	}
 		this.postservice.create('http://localhost:8000/'+loc,formData)
 			.subscribe(response=>{
 				if(response['response']=='pass')
@@ -126,6 +132,7 @@ export class ProfileComponent implements OnInit {
 	 changeDescriptionTrigger(){
 	 	this.descriptionChangeBox?this.descriptionChangeBox=false:this.descriptionChangeBox=true;
 	 }
+
 
 
 

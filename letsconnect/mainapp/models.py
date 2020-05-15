@@ -21,4 +21,5 @@ class NewProfile(models.Model):
 class Pictures(models.Model):
 	username = models.CharField(max_length=50)
 	picture = models.ImageField(upload_to='images/uploads/')
+	caption = models.CharField(max_length=128,null=True)
 

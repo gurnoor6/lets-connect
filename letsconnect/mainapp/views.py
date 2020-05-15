@@ -43,7 +43,11 @@ def uploadImage(request):
 	if request.method=='POST':
 		username = request.POST['username']
 		pic = request.FILES['picture']
-		Pictures.objects.create(username=username,picture=pic)
+		try:
+			caption = request.POST['caption']
+		except:
+			caption=""
+		Pictures.objects.create(username=username,picture=pic,caption=caption)
 		return JsonResponse({"response":"pass"})
 
 	if request.method=='GET':

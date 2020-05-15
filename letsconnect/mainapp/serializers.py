@@ -15,4 +15,4 @@ class NewProfileSerializer(serializers.ModelSerializer):
 class PictureSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Pictures
-		fields=['picture']
+		fields=['picture','caption']
