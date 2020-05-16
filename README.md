@@ -17,6 +17,7 @@ This project is undergoing as of now. Currently, you can-
 ## Points about features
 * You get the admin access to your site, that is, you can add images, change description, profile picture etc on your page. But you do not get these permissions on some other user's profile. 
 * The sole aim of this project is to understand the implementation behind the social networking sites and understand the challenges faced while making such a website. This app is not a substitute for those established sites at all.
+* To view the caption, click on any image and you will see the caption. To see the image back again, click on the caption again. 
 
 ## Development server
 
