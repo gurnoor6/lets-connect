@@ -26,6 +26,8 @@
 	display: flex;
 	justify-content: center;
     align-items: center;
+    box-shadow:0 0 10px rgb(128,128,128,0.8);
+	border-radius: 10%;
 }
 
 @media screen and (max-width:992px){
