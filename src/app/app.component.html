@@ -9,14 +9,14 @@
 
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
 
-  <a class="navbar-brand" href="#">Let's Connect!</a>
+  <a class="navbar-brand" href="/">Let's Connect!</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse " id="collapsibleNavbar">
     <ul class="navbar-nav ml-auto">
     <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" #searchInput type="search" placeholder="Type Username" aria-label="Search">
+      <input class="form-control mr-sm-2" #searchInput type="search" placeholder="Search Username" aria-label="Search">
       <button class="btn btn-outline-light my-2 my-sm-0 search-button" type="submit" (click)="redirectToUser(searchInput)"><span>Search</span></button>
     </form>
 	  <li class="nav-item" *ngIf="loggedIn">
