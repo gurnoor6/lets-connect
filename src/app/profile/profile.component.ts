@@ -90,7 +90,8 @@ export class ProfileComponent implements OnInit {
 
 	 onImgClick(){
 	 	this.dNone=true;
-	 	document.getElementById('profile-image').click();
+	 	if(this.adminAccess)
+	 		document.getElementById('profile-image').click();
 	 }
 
 	 deleteUser(){
