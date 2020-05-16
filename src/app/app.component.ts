@@ -53,6 +53,10 @@ export class AppComponent implements OnInit {
     this.visitor=false;
   }
 
+  redirectToUser(input:HTMLInputElement){
+    window.location.href="http://localhost:4200/profile/"+input.value;
+  }
+
 
 
 }
