@@ -12,6 +12,7 @@ import{showCaption} from './profile-animations'
   styleUrls: ['./profile.component.css'],
   animations:[
   	showCaption,
+
   ],
 })
 export class ProfileComponent implements OnInit {
@@ -29,6 +30,7 @@ export class ProfileComponent implements OnInit {
   description="Hello World!"
   descriptionChangeSuccess=false;
   caption="";
+  textDisplay=true;
 
 
   constructor(private ud:UserdataService, private postservice:PostService,private router:Router,
@@ -50,7 +52,7 @@ export class ProfileComponent implements OnInit {
   	this.postservice.getPictures(this.username)
   					.subscribe(response=>{
   						for(let entry of (response as any)){
-  							var pic = {location:"http://localhost:8000"+entry['picture'],caption:entry['caption'],state:'image'};
+  							var pic = {location:"http://localhost:8000"+entry['picture'],caption:entry['caption'],state:'image',text:"false"};
   							this.pictures.push(pic);
   						}	  					
   					});
@@ -138,6 +140,21 @@ export class ProfileComponent implements OnInit {
 
 	 changePicState(pic:Picture){
 	 	pic.state=="text"?pic.state="image":pic.state="text";
+	 	if(pic.state=="image"){
+	 		pic.text="false";
+	 		console.log(pic.text=='false')
+	 	}
+	 }
+
+	 showPicText(event,pic){
+	 	if(event['totalTime'] && event['toState']=='text'){
+
+	 		pic.text="true";
+	 	}
+	 }
+
+	 showEvent(event){
+	 	console.log(event);
 	 }
 
 

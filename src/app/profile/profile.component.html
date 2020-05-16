@@ -32,8 +32,8 @@
 	</div>
 	<div class="row justify-content-left">
 		<div class="col-12 col-md-4 text-center pictures my-auto" *ngFor="let pic of pictures">
-			<img [@showCaption]="pic.state" class="mt-4" src="{{pic.location}}" (click)="changePicState(pic)">
-			<div class="caption-encloser mt-4" [class.d-none]="pic.state=='image'" (click)="changePicState(pic)"><p class="lead" >{{pic.caption}}</p></div>
+			<img [@showCaption]="pic.state" class="mt-4" src="{{pic.location}}" (click)="changePicState(pic)" (@showCaption.done)="showPicText($event,pic)">
+			<div class="caption-encloser mt-4" [class.d-none]="pic.text=='false'" (click)="changePicState(pic)"><p class="lead" >{{pic.caption}}</p></div>
 		</div>
 
 	</div>
