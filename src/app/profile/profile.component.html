@@ -8,7 +8,8 @@
 		</div>
 		<div class="col-sm-12 col-md-9 text-center text-md-left">
 			<p class="lead">{{username}}</p> 
-			<p class="data-description"><b>{{followers}}</b> followers</p>
+			<p class="data-description" (click)="showFollowers()"><b>{{followers}}</b> followers</p>
+			<p class="lead" *ngIf="showFollowersToggler">Followers: {{followersList}}</p>
 			<br>
 			<p class="lead">{{title}}<span *ngIf="adminAccess" (click)="changeTitleTrigger()" class="fa fa-pencil" style="margin-left:4px"></span></p>
 			<div [class.d-none]="!titleChangeBox" class="title-change-box">

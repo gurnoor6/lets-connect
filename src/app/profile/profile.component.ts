@@ -33,6 +33,8 @@ export class ProfileComponent implements OnInit {
   textDisplay=true;
   followers=0;
   displayFollow=true;
+  showFollowersToggler=false;
+  followersList="";
 
 
   constructor(private ud:UserdataService, private postservice:PostService,private router:Router,
@@ -71,6 +73,7 @@ export class ProfileComponent implements OnInit {
   			if(response[0]['followerNames'].includes(this.ud.getCurrentUser())){
   				this.displayFollow=false;
   			}
+  			this.followersList = response[0]['followerNames'].replace(","," ");
   		})
 
 
@@ -174,16 +177,30 @@ export class ProfileComponent implements OnInit {
 
 	 changeFollowers(x){
 	 	this.followers+=x;
-	 	if(x==1)
+	 	if(x==1){
 	 		this.displayFollow=false;
-	 	else
+	 		if(this.followersList.trim()!=""){
+	 			this.followersList = this.followersList + ","+this.ud.getCurrentUser();
+	 		}
+	 		else
+	 			this.followersList = this.followersList +this.ud.getCurrentUser();
+
+	 	}
+	 	else{
 	 		this.displayFollow=true;
+	 		this.followersList = this.followersList.replace(","+this.ud.getCurrentUser(),"");
+	 		this.followersList = this.followersList.replace(this.ud.getCurrentUser(),"");
+	 	}
 	 	const formData = new FormData();
 	 	formData.append('username',this.username);
 	 	formData.append('value',x);
 	 	formData.append('followerName',this.ud.getCurrentUser());
 	 	//writing subscribe is essential here. otherwise data in database is not updated
 	 	this.postservice.create('http://localhost:8000/changeFollowers/',formData).subscribe();	
+	 }
+
+	 showFollowers(){
+	 	this.showFollowersToggler = this.showFollowersToggler ? this.showFollowersToggler=false: this.showFollowersToggler=true;
 	 }
 
 
