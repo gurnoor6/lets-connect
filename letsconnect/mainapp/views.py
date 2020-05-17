@@ -102,6 +102,32 @@ def updateDescription(request):
 			return JsonResponse({"response":"pass"})
 		return JsonResponse({"response":"fail"})
 
+@csrf_exempt
+def getUserData(request):
+	if request.method=='POST':
+		username = request.POST['username']
+		profiles = NewProfile.objects.all().filter(username=username)
+		if len(profiles)==1:
+			return JsonResponse(NewProfileSerializer(profiles,many=True).data,safe=False)
+	return JsonResponse({"response":"fail"})
+
+@csrf_exempt
+def changeFollowers(request):
+	if request.method=='POST':
+		username = request.POST['username']
+		value = int(request.POST['value'])
+		followerName = str(request.POST['followerName'])
+		profiles = NewProfile.objects.all().filter(username=username)
+		if len(profiles)==1:
+			followers = profiles[0].followers
+			followerNames = profiles[0].followerNames
+			if value==1:
+				followerNames = followerNames+","+followerName
+			elif value==-1:
+				followerNames = followerNames.replace(","+followerName,"")
+			profiles.update(followers = followers+value,followerNames=followerNames)
+			return JsonResponse({"response":"pass"})
+	return JsonResponse({"response":"fail"})
 
 
 

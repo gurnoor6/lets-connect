@@ -8,7 +8,7 @@
 		</div>
 		<div class="col-sm-12 col-md-9 text-center text-md-left">
 			<p class="lead">{{username}}</p> 
-			<p class="data-description"><b>0</b> followers</p>
+			<p class="data-description"><b>{{followers}}</b> followers</p>
 			<br>
 			<p class="lead">{{title}}<span *ngIf="adminAccess" (click)="changeTitleTrigger()" class="fa fa-pencil" style="margin-left:4px"></span></p>
 			<div [class.d-none]="!titleChangeBox" class="title-change-box">
@@ -23,6 +23,8 @@
 				<button class="btn btn-dark btn-sm" (click)="changeDescription()">Change!</button>
 			</div>
 			<p class="small text-success" [class.d-none]="!descriptionChangeSuccess">Your info has been updated successfully</p>
+			<button class="btn btn-dark" (click)="changeFollowers(1)" *ngIf="displayFollow && !adminAccess">Follow</button>
+			<button class="btn btn-light" (click)="changeFollowers(-1)" *ngIf="!displayFollow && !adminAccess">Following</button>
 		</div>
 	</div>
 

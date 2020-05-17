@@ -31,6 +31,8 @@ export class ProfileComponent implements OnInit {
   descriptionChangeSuccess=false;
   caption="";
   textDisplay=true;
+  followers=0;
+  displayFollow=true;
 
 
   constructor(private ud:UserdataService, private postservice:PostService,private router:Router,
@@ -56,8 +58,20 @@ export class ProfileComponent implements OnInit {
   							this.pictures.push(pic);
   						}	  					
   					});
-  	this.title=this.ud.getTitle();
-  	this.description = this.ud.getDescription();
+
+
+  	//statements here are used to fill the user specific data from database. 
+  	const formData = new FormData();
+  	formData.append('username',this.username)
+  	this.postservice.create("http://localhost:8000/getUserData/",formData).subscribe(
+  		response=>{
+  			this.description = response[0]['description'];
+  			this.title = response[0]['title'];
+  			this.followers = +response[0]['followers'];
+  			if(response[0]['followerNames'].includes(this.ud.getCurrentUser())){
+  				this.displayFollow=false;
+  			}
+  		})
 
 
   }
@@ -158,6 +172,19 @@ export class ProfileComponent implements OnInit {
 	 	console.log(event);
 	 }
 
+	 changeFollowers(x){
+	 	this.followers+=x;
+	 	if(x==1)
+	 		this.displayFollow=false;
+	 	else
+	 		this.displayFollow=true;
+	 	const formData = new FormData();
+	 	formData.append('username',this.username);
+	 	formData.append('value',x);
+	 	formData.append('followerName',this.ud.getCurrentUser());
+	 	//writing subscribe is essential here. otherwise data in database is not updated
+	 	this.postservice.create('http://localhost:8000/changeFollowers/',formData).subscribe();	
+	 }
 
 
 

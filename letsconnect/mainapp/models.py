@@ -16,6 +16,8 @@ class NewProfile(models.Model):
 	profilepicture = models.ImageField(upload_to='images/')
 	description = models.TextField(null=True)
 	title = models.TextField(null=True)
+	followers = models.IntegerField(default=0)
+	followerNames = models.TextField(default="")
 
 
 class Pictures(models.Model):
