@@ -18,6 +18,8 @@ class NewProfile(models.Model):
 	title = models.TextField(null=True)
 	followers = models.IntegerField(default=0)
 	followerNames = models.TextField(default="")
+	following = models.IntegerField(default=0)
+	followingNames = models.TextField(default="")
 
 
 class Pictures(models.Model):

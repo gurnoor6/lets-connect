@@ -16,6 +16,7 @@ export class RegisterComponent implements OnInit {
 
   }
 
+host =this.ud.getHost()
 userForm = new NewUser('','','');
 registered=false;
 error = false;
@@ -30,7 +31,7 @@ handleFileInput(files:FileList){
  	formData.append('password',this.userForm.password);
  	formData.append('username',this.userForm.username);
  	formData.append('profilepicture',this.fileToUpload,this.fileToUpload.name);
-	this.service.create('http://localhost:8000/profile/',formData)
+	this.service.create(this.host+'/profile/',formData)
 		.subscribe(response=>{
 					this.registered=true;
 					this.ud.setProfilePicture(this.userForm.username,response['profilepicture']);

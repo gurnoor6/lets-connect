@@ -6,6 +6,9 @@ import { Injectable } from '@angular/core';
 
 export class UserdataService {
   
+  host = "http://localhost:8000";
+
+
   private profilepicture="https://www.innonthesquare.com/resourcefiles/mobilehomeimages/inn-on-the-square-falmouth-massachusetts-mobile.jpg";
   private username="";
   constructor() { }
@@ -14,6 +17,11 @@ export class UserdataService {
   setProfilePicture(username,address):void{
   	
     localStorage.setItem(username,address);
+  }
+
+
+  getHost():string{
+    return this.host;
   }
 
   getProfilePicture(username):string{

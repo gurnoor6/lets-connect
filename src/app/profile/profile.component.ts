@@ -17,6 +17,7 @@ import{showCaption} from './profile-animations'
 })
 export class ProfileComponent implements OnInit {
 
+  host="";
   profilepic="";
   username="";
   pictures:Picture[]=[];
@@ -35,12 +36,15 @@ export class ProfileComponent implements OnInit {
   displayFollow=true;
   showFollowersToggler=false;
   followersList="";
+  following=0;
+  posts=0;
 
 
   constructor(private ud:UserdataService, private postservice:PostService,private router:Router,
   	private route:ActivatedRoute) { }
 
   ngOnInit(): void {
+  	this.host=this.ud.getHost();
   	if(window.location.href.includes("profile")){
   		this.username = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
   	}
@@ -56,8 +60,9 @@ export class ProfileComponent implements OnInit {
   	this.postservice.getPictures(this.username)
   					.subscribe(response=>{
   						for(let entry of (response as any)){
-  							var pic = {location:"http://localhost:8000"+entry['picture'],caption:entry['caption'],state:'image',text:"false"};
+  							var pic = {location:this.host+entry['picture'],caption:entry['caption'],state:'image',text:"false"};
   							this.pictures.push(pic);
+  							this.posts++;
   						}	  					
   					});
 
@@ -65,7 +70,7 @@ export class ProfileComponent implements OnInit {
   	//statements here are used to fill the user specific data from database. 
   	const formData = new FormData();
   	formData.append('username',this.username)
-  	this.postservice.create("http://localhost:8000/getUserData/",formData).subscribe(
+  	this.postservice.create(this.host+"/getUserData/",formData).subscribe(
   		response=>{
   			this.description = response[0]['description'];
   			this.title = response[0]['title'];
@@ -98,7 +103,7 @@ export class ProfileComponent implements OnInit {
 	 	if(caption!=""){
 	 		formData.append('caption',this.caption);
 	 	}
-		this.postservice.create('http://localhost:8000/'+loc,formData)
+		this.postservice.create(this.host+'/'+loc,formData)
 			.subscribe(response=>{
 				if(response['response']=='pass')
 					this.uploadSuccess=true;
@@ -114,7 +119,7 @@ export class ProfileComponent implements OnInit {
 	 deleteUser(){
 	 	const formData = new FormData();
 	 	formData.append('username',this.username);
-	 	this.postservice.create('http://localhost:8000/delete/',formData)
+	 	this.postservice.create(this.host+'/delete/',formData)
 	 					.subscribe(response=>{
 	 						console.log(response);
 	 					});
@@ -132,7 +137,7 @@ export class ProfileComponent implements OnInit {
 	 	const formData = new FormData();
 	 	formData.append('username',this.username);
 	 	formData.append('title',this.title);
-	 	this.postservice.create('http://localhost:8000/updateTitle/',formData)
+	 	this.postservice.create(this.host+'/updateTitle/',formData)
 	 					.subscribe(response=>{
 	 						this.changeTitleTrigger();
 	 						this.titleChangeSuccess=true;
@@ -144,7 +149,7 @@ export class ProfileComponent implements OnInit {
 	 	const formData = new FormData();
 	 	formData.append('username',this.username);
 	 	formData.append('description',this.description);
-	 	this.postservice.create('http://localhost:8000/updateDescription/',formData)
+	 	this.postservice.create(this.host+'/updateDescription/',formData)
 	 					.subscribe(response=>{
 	 						this.changeDescriptionTrigger();
 	 						this.descriptionChangeSuccess=true;
@@ -196,7 +201,7 @@ export class ProfileComponent implements OnInit {
 	 	formData.append('value',x);
 	 	formData.append('followerName',this.ud.getCurrentUser());
 	 	//writing subscribe is essential here. otherwise data in database is not updated
-	 	this.postservice.create('http://localhost:8000/changeFollowers/',formData).subscribe();	
+	 	this.postservice.create(this.host+'/changeFollowers/',formData).subscribe();	
 	 }
 
 	 showFollowers(){

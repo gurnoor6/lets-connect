@@ -15,11 +15,12 @@ export class LoginComponent implements OnInit {
   public mypassword="";
   public user:User;
   public validationFailed=false;
+  host="";
 
   constructor(private service:PostService, private ud:UserdataService,private route:ActivatedRoute,private router:Router) { }
 
   ngOnInit(): void {
-    
+    this.host=this.ud.getHost();
   }
 
   log(){
@@ -32,7 +33,7 @@ export class LoginComponent implements OnInit {
   	const formdata:FormData = new FormData;
   	formdata.append('email',this.myemail);
   	formdata.append('password',this.mypassword);
-  	this.service.create('http://localhost:8000/login/',formdata).subscribe(response=>{
+  	this.service.create(this.host+'/login/',formdata).subscribe(response=>{
   		if (response['response']=='fail'){
   			this.validationFailed=true;
   		}
