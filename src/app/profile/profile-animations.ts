@@ -30,3 +30,17 @@ export const showCaption=(
 	])
 
 )
+
+export const fader=(
+
+	trigger('fader',[
+		transition(':enter',animate('0.25s',keyframes([
+			style({opacity:"0",offset:0.0}),
+			style({opacity:"0.5",offset:0.7}),
+			style({opacity:"1",offset:1.0}),
+
+		])))
+
+	])
+
+)

@@ -39,7 +39,7 @@
 		<p class="lead mb-0 ml-2" (click)="showProfileData('notifications')" *ngIf="adminAccess">NOTIFICATIONS</p>
 	</div>
 
-	<div class="user-pics" *ngIf="!showNotifications">
+	<div @fader class="user-pics" *ngIf="!showNotifications">
 		<div class="row justify-content-left">
 			<div class="col-12 col-md-4 text-center pictures my-auto" *ngFor="let pic of pictures">
 				<img [@showCaption]="pic.state" class="mt-4" src="{{pic.location}}" (click)="changePicState(pic)" (@showCaption.done)="showPicText($event,pic)">
@@ -65,7 +65,7 @@
 		</div>
 	</div>
 	<br>
-	<div class="notifications" *ngIf="showNotifications">
+	<div  @fader class="notifications" *ngIf="showNotifications">
 		<div class="text-center" *ngFor="let n of notifications_2">
 			<p class="lead text-info mb-0">{{n.text}}</p>
 			<p class="text-muted mt-0" style="margin-top:0;font-size: 12px;">{{n.date}}</p>

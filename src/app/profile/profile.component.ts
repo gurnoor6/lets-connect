@@ -4,7 +4,7 @@ import {PostService} from '.././services/post.service';
 import {ActivatedRoute,Router} from '@angular/router';
 import { Subscription } from 'rxjs';
 import {Picture,Notification} from './picture-interface';
-import{showCaption} from './profile-animations';
+import{showCaption,fader} from './profile-animations';
 
 @Component({
   selector: 'app-profile',
@@ -12,6 +12,7 @@ import{showCaption} from './profile-animations';
   styleUrls: ['./profile.component.css'],
   animations:[
   	showCaption,
+  	fader
   ],
 })
 export class ProfileComponent implements OnInit {
