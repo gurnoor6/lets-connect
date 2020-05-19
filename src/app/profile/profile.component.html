@@ -29,7 +29,8 @@
 			<p class="small text-success" [class.d-none]="!descriptionChangeSuccess">Your info has been updated successfully</p>
 			<button class="btn btn-dark" (click)="changeFollowers(1)" *ngIf="displayFollow && !adminAccess">Follow</button>
 			<button class="btn btn-light" (click)="changeFollowers(-1)" *ngIf="!displayFollow && !adminAccess">Following</button>
-	</div>
+			<button class="btn btn-dark" *ngIf="adminAccess" (click)="showProfileData('editUploads')">Edit Uploads</button>
+		</div>
 	</div>
 
 	<hr>
@@ -39,7 +40,11 @@
 	<div class="row justify-content-left">
 		<div class="col-12 col-md-4 text-center pictures my-auto" *ngFor="let pic of pictures">
 			<img [@showCaption]="pic.state" class="mt-4" src="{{pic.location}}" (click)="changePicState(pic)" (@showCaption.done)="showPicText($event,pic)">
-			<div class="caption-encloser mt-4" [class.d-none]="pic.text=='false'" (click)="changePicState(pic)"><p class="lead" >{{pic.caption}}</p></div>
+			<div class="caption-encloser mt-4" [class.d-none]="pic.text=='false'" (click)="changePicState(pic)">
+				<p class="lead" >{{pic.caption}}</p>
+			</div>
+			<button class="btn btn-danger d-inline" (click)="deletePic(pic)" *ngIf="editUploads">Delete</button>
+			<button class="btn btn-info d-inline"  *ngIf="editUploads">Edit Caption</button>
 		</div>
 
 	</div>

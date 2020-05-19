@@ -136,6 +136,18 @@ def changeFollowers(request):
 	return JsonResponse({"response":"fail"})
 
 
+@csrf_exempt
+def deletePic(request):
+	if request.method=='POST':
+		username = request.POST['username']
+		pic = request.POST['pic'].replace("/media/","")
+		caption = request.POST['caption']
+		pictures = Pictures.objects.all().filter(username=username,picture=pic,caption=caption).delete()
+		return JsonResponse({"response":"pass"})
+
+
+
+
 
 
 

@@ -12,7 +12,6 @@ import{showCaption} from './profile-animations';
   styleUrls: ['./profile.component.css'],
   animations:[
   	showCaption,
-
   ],
 })
 export class ProfileComponent implements OnInit {
@@ -40,6 +39,7 @@ export class ProfileComponent implements OnInit {
   following=0;
   followingList="";
   posts=0;
+  editUploads=false;
 
 
   constructor(private ud:UserdataService, private postservice:PostService,private router:Router,
@@ -213,10 +213,23 @@ export class ProfileComponent implements OnInit {
 	 		this.showFollowingToggler=false;
 	 		this.showFollowersToggler = this.showFollowersToggler ? this.showFollowersToggler=false: this.showFollowersToggler=true;
 	 	}
-	 	else if(target='following'){
+	 	else if(target=='following'){
 	 		this.showFollowersToggler=false;
 	 		this.showFollowingToggler = this.showFollowingToggler ? this.showFollowingToggler=false: this.showFollowingToggler=true;
 	 	}
+
+	 	//wasn't intended initially but it fit well. So did here
+	 	else if(target=='editUploads')
+	 		this.editUploads = this.editUploads ? this.editUploads=false: this.editUploads=true;
+	 	
+	 }
+
+	 deletePic(pic:Picture){
+	 	const formData = new FormData();
+	 	formData.append('username',this.username);
+	 	formData.append('pic',pic.location.replace(this.ud.getHost(),""));
+	 	formData.append('caption',pic.caption);
+	 	this.postservice.create(this.host+'/deletePic/',formData).subscribe(response=>{location.reload()});
 	 }
 
 

@@ -18,6 +18,7 @@ urlpatterns = [
     path('updateDescription/',views.updateDescription,name='updateDescription'),
     path('getUserData/',views.getUserData,name='getUserData'),
     path('changeFollowers/',views.changeFollowers,name='changeFollowers'),
+    path('deletePic/',views.deletePic,name='deletePic'),
 
 ]
 
