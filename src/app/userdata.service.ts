@@ -6,7 +6,8 @@ import { Injectable } from '@angular/core';
 
 export class UserdataService {
   
-  host = "http://localhost:8000";
+  // host = "http://localhost:8000";
+  host = 'https://connectlets3.pythonanywhere.com';
 
 
   private profilepicture="https://www.innonthesquare.com/resourcefiles/mobilehomeimages/inn-on-the-square-falmouth-massachusetts-mobile.jpg";
