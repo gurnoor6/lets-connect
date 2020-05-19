@@ -35,8 +35,8 @@
 
 	<hr>
 	<div class="tab-nav text-center mb-0">
-		<p class="lead mb-0 mr-2" (click)="showProfileData('notifications')">YOUR PHOTOS</p>
-		<p class="lead mb-0 ml-2" (click)="showProfileData('notifications')">NOTIFICATIONS</p>
+		<p class="lead mb-0 mr-2" (click)="showProfileData('user-pics')">YOUR PHOTOS</p>
+		<p class="lead mb-0 ml-2" (click)="showProfileData('notifications')" *ngIf="adminAccess">NOTIFICATIONS</p>
 	</div>
 
 	<div class="user-pics" *ngIf="!showNotifications">

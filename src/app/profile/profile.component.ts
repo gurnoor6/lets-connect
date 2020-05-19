@@ -236,8 +236,11 @@ export class ProfileComponent implements OnInit {
 	 		this.editUploads = this.editUploads ? this.editUploads=false: this.editUploads=true;
 
 	 	else if(target=='notifications'){
+	 		this.showNotifications = true;
+	 	}
 
-	 		this.showNotifications = this.showNotifications ? this.showNotifications=false: this.showNotifications=true;
+	 	else if(target=='user-pics'){
+	 		this.showNotifications=false;
 	 	}
 	 	
 	 }
