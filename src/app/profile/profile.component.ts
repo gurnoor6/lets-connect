@@ -4,7 +4,7 @@ import {PostService} from '.././services/post.service';
 import {ActivatedRoute,Router} from '@angular/router';
 import { Subscription } from 'rxjs';
 import {Picture} from './picture-interface';
-import{showCaption} from './profile-animations'
+import{showCaption} from './profile-animations';
 
 @Component({
   selector: 'app-profile',
@@ -35,8 +35,10 @@ export class ProfileComponent implements OnInit {
   followers=0;
   displayFollow=true;
   showFollowersToggler=false;
+  showFollowingToggler=false;
   followersList="";
   following=0;
+  followingList="";
   posts=0;
 
 
@@ -56,7 +58,6 @@ export class ProfileComponent implements OnInit {
   	if (this.username==this.ud.getCurrentUser())
   		this.adminAccess=true;
 
-  	this.profilepic=this.ud.getProfilePicture(this.username);
   	this.postservice.getPictures(this.username)
   					.subscribe(response=>{
   						for(let entry of (response as any)){
@@ -79,6 +80,9 @@ export class ProfileComponent implements OnInit {
   				this.displayFollow=false;
   			}
   			this.followersList = response[0]['followerNames'].replace(","," ");
+  			this.following = +response[0]['following'];
+  			this.followingList = response[0]['followingNames'].replace(","," ");
+  			this.profilepic = this.ud.getHost()+response[0]['profilepicture'];
   		})
 
 
@@ -204,8 +208,15 @@ export class ProfileComponent implements OnInit {
 	 	this.postservice.create(this.host+'/changeFollowers/',formData).subscribe();	
 	 }
 
-	 showFollowers(){
-	 	this.showFollowersToggler = this.showFollowersToggler ? this.showFollowersToggler=false: this.showFollowersToggler=true;
+	 showProfileData(target:String){
+	 	if(target=='followers'){
+	 		this.showFollowingToggler=false;
+	 		this.showFollowersToggler = this.showFollowersToggler ? this.showFollowersToggler=false: this.showFollowersToggler=true;
+	 	}
+	 	else if(target='following'){
+	 		this.showFollowersToggler=false;
+	 		this.showFollowingToggler = this.showFollowingToggler ? this.showFollowingToggler=false: this.showFollowingToggler=true;
+	 	}
 	 }
 
 

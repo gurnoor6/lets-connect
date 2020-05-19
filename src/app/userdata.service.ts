@@ -14,12 +14,6 @@ export class UserdataService {
   constructor() { }
 
   map = new Map();
-  setProfilePicture(username,address):void{
-  	
-    localStorage.setItem(username,address);
-  }
-
-
   getHost():string{
     return this.host;
   }
@@ -29,9 +23,13 @@ export class UserdataService {
   	return localStorage.getItem(username);
   }
 
+  setProfilePicture(username,address):void{
+    
+    localStorage.setItem(username,address);
+  }
+
   setUsername(name):void{
   	this.username=name;
-    
   }
 
   getUsername():string{

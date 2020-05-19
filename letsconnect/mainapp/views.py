@@ -118,14 +118,20 @@ def changeFollowers(request):
 		value = int(request.POST['value'])
 		followerName = str(request.POST['followerName'])
 		profiles = NewProfile.objects.all().filter(username=username)
+		profiles_follower = NewProfile.objects.all().filter(username=followerName)		#Person who send follow request. 
 		if len(profiles)==1:
 			followers = profiles[0].followers
 			followerNames = profiles[0].followerNames
+			following = profiles_follower[0].following
+			followingNames = profiles_follower[0].followingNames
 			if value==1:
 				followerNames = followerNames+","+followerName
+				followingNames = followingNames + ","+username
 			elif value==-1:
 				followerNames = followerNames.replace(","+followerName,"")
+				followingNames = followingNames.replace(","+username,"")
 			profiles.update(followers = followers+value,followerNames=followerNames)
+			profiles_follower.update(following = following+value,followingNames=followingNames)
 			return JsonResponse({"response":"pass"})
 	return JsonResponse({"response":"fail"})
 

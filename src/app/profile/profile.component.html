@@ -8,10 +8,11 @@
 		</div>
 		<div class="col-sm-12 col-md-9 text-center text-md-left">
 			<p class="lead">{{username}}</p> 
-			<p class="data-description"><b>{{posts}}</b> posts</p> 
-			<p class="data-description" (click)="showFollowers()"><b>{{followers}}</b> followers</p>
-			<p class="data-description"><b>{{following}}</b> following</p>
-			<p class="lead" *ngIf="showFollowersToggler">Followers: {{followersList}}</p>
+			<p class="data-description d-inline-block" style="border-right:0.5px solid #121212;padding-right:8px"><b>{{posts}}</b> posts </p> 
+			<p class="data-description d-inline-block" (click)="showProfileData('followers')" style="border-right:0.5px solid #121212;padding-right:8px;padding-left:8px"><b>{{followers}}</b> followers </p>
+			<p class="data-description d-inline-block" (click)="showProfileData('following')" style="padding-left: 8px"><b>{{following}}</b> following</p>
+			<p class="text-info" *ngIf="showFollowersToggler" style="margin-bottom: 0">Followers: {{followersList}}</p>
+			<p class="text-info" *ngIf="showFollowingToggler" style="margin-bottom: 0">Following: {{followingList}}</p>
 			<br>
 			<p class="lead">{{title}}<span *ngIf="adminAccess" (click)="changeTitleTrigger()" class="fa fa-pencil" style="margin-left:4px"></span></p>
 			<div [class.d-none]="!titleChangeBox" class="title-change-box">
@@ -28,7 +29,7 @@
 			<p class="small text-success" [class.d-none]="!descriptionChangeSuccess">Your info has been updated successfully</p>
 			<button class="btn btn-dark" (click)="changeFollowers(1)" *ngIf="displayFollow && !adminAccess">Follow</button>
 			<button class="btn btn-light" (click)="changeFollowers(-1)" *ngIf="!displayFollow && !adminAccess">Following</button>
-		</div>
+	</div>
 	</div>
 
 	<hr>
