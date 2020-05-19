@@ -20,6 +20,7 @@ class NewProfile(models.Model):
 	followerNames = models.TextField(default="")
 	following = models.IntegerField(default=0)
 	followingNames = models.TextField(default="")
+	notifications = models.TextField(default="")
 
 
 class Pictures(models.Model):

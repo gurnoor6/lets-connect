@@ -4,3 +4,8 @@ export interface Picture{
 	state:string;
 	text:string;
 }
+
+export interface Notification{
+	date:string;
+	text:string;
+}

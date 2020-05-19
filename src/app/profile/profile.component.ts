@@ -3,7 +3,7 @@ import {UserdataService} from '.././userdata.service';
 import {PostService} from '.././services/post.service';
 import {ActivatedRoute,Router} from '@angular/router';
 import { Subscription } from 'rxjs';
-import {Picture} from './picture-interface';
+import {Picture,Notification} from './picture-interface';
 import{showCaption} from './profile-animations';
 
 @Component({
@@ -40,6 +40,9 @@ export class ProfileComponent implements OnInit {
   followingList="";
   posts=0;
   editUploads=false;
+  notifications="";
+  notifications_2:Notification[]=[];	//Basically with date stamp
+  showNotifications=false;
 
 
   constructor(private ud:UserdataService, private postservice:PostService,private router:Router,
@@ -83,11 +86,21 @@ export class ProfileComponent implements OnInit {
   			this.following = +response[0]['following'];
   			this.followingList = response[0]['followingNames'].replace(","," ");
   			this.profilepic = this.ud.getHost()+response[0]['profilepicture'];
+  			this.notifications = response[0]['notifications'].split('\n').reverse();
+  			this.prepareNotifications();
   		})
-
-
   }
 
+
+  //split notification  into date and content.
+  prepareNotifications(){
+  	for(let entry of this.notifications){
+  		if(entry!=""){
+  			let e = entry.split('\t');
+  			this.notifications_2.push({text:e[1],date:e[0]});
+  		}
+  	}
+  }
 
 
     fileToUpload :File=null;
@@ -221,6 +234,11 @@ export class ProfileComponent implements OnInit {
 	 	//wasn't intended initially but it fit well. So did here
 	 	else if(target=='editUploads')
 	 		this.editUploads = this.editUploads ? this.editUploads=false: this.editUploads=true;
+
+	 	else if(target=='notifications'){
+
+	 		this.showNotifications = this.showNotifications ? this.showNotifications=false: this.showNotifications=true;
+	 	}
 	 	
 	 }
 

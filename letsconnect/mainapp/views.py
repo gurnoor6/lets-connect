@@ -5,6 +5,8 @@ from .serializers import *
 from django.http import HttpResponse
 from django.http.response import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from time import gmtime, strftime
+
 
 
 class NewProfileView(viewsets.ModelViewSet):
@@ -124,14 +126,20 @@ def changeFollowers(request):
 			followerNames = profiles[0].followerNames
 			following = profiles_follower[0].following
 			followingNames = profiles_follower[0].followingNames
+			notifications = profiles[0].notifications
+			notifications_follower = profiles_follower[0].notifications
 			if value==1:
 				followerNames = followerNames+","+followerName
 				followingNames = followingNames + ","+username
+				notifications = notifications + str(strftime("%Y-%m-%d %H:%M:%S", gmtime()))+'\t'+ followerName +" has started following you! \n"
+				notifications_follower = notifications_follower + str(strftime("%Y-%m-%d %H:%M:%S", gmtime()))+'\t'+ "You started following " + username +' !! \n'
 			elif value==-1:
 				followerNames = followerNames.replace(","+followerName,"")
 				followingNames = followingNames.replace(","+username,"")
-			profiles.update(followers = followers+value,followerNames=followerNames)
-			profiles_follower.update(following = following+value,followingNames=followingNames)
+				notifications = notifications + str(strftime("%Y-%m-%d %H:%M:%S", gmtime()))+'\t'+ followerName +" has stopped following you :( \n"
+				notifications_follower = notifications_follower + str(strftime("%Y-%m-%d %H:%M:%S", gmtime()))+'\t'+ "You stopped following " + username +' :( \n'
+			profiles.update(followers = followers+value,followerNames=followerNames,notifications=notifications)
+			profiles_follower.update(following = following+value,followingNames=followingNames,notifications = notifications_follower)
 			return JsonResponse({"response":"pass"})
 	return JsonResponse({"response":"fail"})
 
@@ -144,6 +152,7 @@ def deletePic(request):
 		caption = request.POST['caption']
 		pictures = Pictures.objects.all().filter(username=username,picture=pic,caption=caption).delete()
 		return JsonResponse({"response":"pass"})
+
 
 
 

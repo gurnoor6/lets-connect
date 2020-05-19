@@ -35,30 +35,40 @@
 
 	<hr>
 	<div class="tab-nav text-center mb-0">
-		<p class="lead mb-0">YOUR PHOTOS</p>
+		<p class="lead mb-0 mr-2" (click)="showProfileData('notifications')">YOUR PHOTOS</p>
+		<p class="lead mb-0 ml-2" (click)="showProfileData('notifications')">NOTIFICATIONS</p>
 	</div>
-	<div class="row justify-content-left">
-		<div class="col-12 col-md-4 text-center pictures my-auto" *ngFor="let pic of pictures">
-			<img [@showCaption]="pic.state" class="mt-4" src="{{pic.location}}" (click)="changePicState(pic)" (@showCaption.done)="showPicText($event,pic)">
-			<div class="caption-encloser mt-4" [class.d-none]="pic.text=='false'" (click)="changePicState(pic)">
-				<p class="lead" >{{pic.caption}}</p>
-			</div>
-			<button class="btn btn-danger d-inline" (click)="deletePic(pic)" *ngIf="editUploads">Delete</button>
-			<button class="btn btn-info d-inline"  *ngIf="editUploads">Edit Caption</button>
-		</div>
 
+	<div class="user-pics" *ngIf="!showNotifications">
+		<div class="row justify-content-left">
+			<div class="col-12 col-md-4 text-center pictures my-auto" *ngFor="let pic of pictures">
+				<img [@showCaption]="pic.state" class="mt-4" src="{{pic.location}}" (click)="changePicState(pic)" (@showCaption.done)="showPicText($event,pic)">
+				<div class="caption-encloser mt-4" [class.d-none]="pic.text=='false'" (click)="changePicState(pic)">
+					<p class="lead" >{{pic.caption}}</p>
+				</div>
+				<button class="btn btn-danger d-inline" (click)="deletePic(pic)" *ngIf="editUploads">Delete</button>
+			</div>
+
+		</div>
+		<br>
+		<div *ngIf="adminAccess">
+				<form #pictureForm="ngForm" class="text-center" novalidate >
+					<input type="text" id="caption" [(ngModel)]="caption" placeholder="Enter Caption Here" name="caption"><br>
+					<input type="file" class="form-control d-none" id="image" (change)="handleFileInput($event.target.files,1)">
+					<button type="submit" class="btn btn-dark mt-2" (click)="onUploadClick()">Upload Image</button>
+					<p class="lead text-success" *ngIf="uploadSuccess">Your Image has been uploaded Successfully. Refresh to see it</p>
+				</form>
+				<br>
+				<!-- <form #deleteForm="ngForm" novalidate (ngSubmit)="deleteUser()" >
+					<button type="submit" class="btn btn-danger">Delete User</button>
+				</form> -->
+		</div>
 	</div>
 	<br>
-	<div *ngIf="adminAccess">
-			<form #pictureForm="ngForm" class="text-center" novalidate >
-				<input type="text" id="caption" [(ngModel)]="caption" placeholder="Enter Caption Here" name="caption"><br>
-				<input type="file" class="form-control d-none" id="image" (change)="handleFileInput($event.target.files,1)">
-				<button type="submit" class="btn btn-dark mt-2" (click)="onUploadClick()">Upload Image</button>
-				<p class="lead text-success" *ngIf="uploadSuccess">Your Image has been uploaded Successfully. Refresh to see it</p>
-			</form>
-			<br>
-			<!-- <form #deleteForm="ngForm" novalidate (ngSubmit)="deleteUser()" >
-				<button type="submit" class="btn btn-danger">Delete User</button>
-			</form> -->
+	<div class="notifications" *ngIf="showNotifications">
+		<div class="text-center" *ngFor="let n of notifications_2">
+			<p class="lead text-info mb-0">{{n.text}}</p>
+			<p class="text-muted mt-0" style="margin-top:0;font-size: 12px;">{{n.date}}</p>
+		</div>
 	</div>
 </div>
